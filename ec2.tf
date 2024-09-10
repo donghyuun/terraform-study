@@ -176,7 +176,7 @@
       route_table_id = aws_route_table.katecam_rt.id
   }
 
-  # 같은 Subnet 통신 간 내부 통신 보안 그룹 열기 (미완)
+  # 같은 Subnet 통신 간 내부 통신 보안 그룹 열기
   # 보안 그룹의 인바운드 규칙을 적용, 아웃바운드는 위에서 모두 열어놨음
   resource "aws_security_group_rule" "katecam_security_ingress_internal"{
     type = "ingress"
