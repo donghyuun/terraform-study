@@ -73,11 +73,52 @@
     security_group_id = aws_security_group.katecam_security.id
   }
 
-  # 인바운드 - 스프링부트
-  resource "aws_security_group_rule" "ingress_spring_boot" {
+  # 인바운드 - 스프링부트_첫번째
+  resource "aws_security_group_rule" "ingress_spring_boot_first" {
     type             = "ingress"
     from_port        = 8080
     to_port          = 8080
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+    security_group_id = aws_security_group.katecam_security.id
+  }
+
+  # 인바운드 - 스프링부트_두번째
+  resource "aws_security_group_rule" "ingress_spring_boot_second" {
+    type             = "ingress"
+    from_port        = 8081
+    to_port          = 8081
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+    security_group_id = aws_security_group.katecam_security.id
+  }
+
+  # 인바운드 - MYSQL
+  resource "aws_security_group_rule" "ingress_mysql" {
+    type             = "ingress"
+    from_port        = 3306
+    to_port          = 3306
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+    security_group_id = aws_security_group.katecam_security.id
+  }
+
+  # 인바운드 - Grafana
+  resource "aws_security_group_rule" "ingress_grafana" {
+    type             = "ingress"
+    from_port        = 3000
+    to_port          = 3000
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+    security_group_id = aws_security_group.katecam_security.id
+  }
+
+
+# 인바운드 - Prometheus
+  resource "aws_security_group_rule" "ingress_prometheus" {
+    type             = "ingress"
+    from_port        = 9090
+    to_port          = 9090
     protocol         = "tcp"
     cidr_blocks      = ["0.0.0.0/0"]
     security_group_id = aws_security_group.katecam_security.id
@@ -134,7 +175,7 @@
     user_data = <<EOF
       #!/bin/bash
       # Create a swap file of 20GB
-      sudo fallocate -l 20G /swapfile
+      sudo fallocate -l 10G /swapfile
       sudo chmod 600 /swapfile
       sudo mkswap /swapfile
       sudo swapon /swapfile
